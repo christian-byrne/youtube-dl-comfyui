@@ -4,8 +4,7 @@ import mimetypes
 
 import torchaudio
 import torch
-from yt_dlp import YoutubeDL
-import yt_dlp.utils
+import yt_dlp
 
 from .parse_custom_cli_args import cli_to_api
 import folder_paths
@@ -13,7 +12,7 @@ import folder_paths
 from typing import Optional, List
 
 
-class YoutubeDLNode:
+class YoutubeDL:
     @classmethod
     def INPUT_TYPES(s):
         return {
@@ -121,7 +120,7 @@ class YoutubeDLNode:
         output_paths = []
         batch_sample_rate = None
 
-        with YoutubeDL(ydl_opts) as ydl:
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             info = ydl.extract_info(youtube_link, download=True)
             sanitized = ydl.sanitize_info(info)
 
@@ -228,4 +227,4 @@ class YoutubeDLNode:
         return paths
 
 
-NODE_CLASS_MAPPINGS = {"YoutubeDLNode": YoutubeDLNode}
+NODE_CLASS_MAPPINGS = {"YoutubeDL": YoutubeDL}
