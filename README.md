@@ -17,6 +17,17 @@ If you provide a link to a playlist, the videos from `playlist_start` to `playli
 
 You can use any of the [yt-dlp cli args](https://github.com/yt-dlp/yt-dlp?tab=readme-ov-file#usage-and-options) for configuration.
 
+### 使用代理 Use with Proxy
+
+你可以简单地将以下命令添加到 `yt_dlp_cli_args` 文本框中：
+
+```bash
+--proxy "socks5://127.0.0.1:1080"
+```
+
+[所有代理选项](https://github.com/yt-dlp/yt-dlp?tab=readme-ov-file#network-options) &nbsp; | &nbsp;  [地理限制选项](https://github.com/yt-dlp/yt-dlp?tab=readme-ov-file#geo-restriction)。
+
+
 ## Requirements
 
 ```
