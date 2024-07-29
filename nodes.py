@@ -10,7 +10,7 @@ import yt_dlp.utils
 from .parse_custom_cli_args import cli_to_api
 import folder_paths
 
-from typing import Optional
+from typing import Optional, List
 
 
 class YoutubeDLNode:
@@ -45,13 +45,13 @@ class YoutubeDLNode:
             },
             "optional": {
                 "audio_quality": (
-                    "INT",
+                    "FLOAT",
                     {
                         "default": 5,
                         "min": 0,
                         "max": 10,
                         "step": 1,
-                        "display": "number",
+                        "display": "slider",
                     },
                 ),
                 "delete_after": (
@@ -90,7 +90,7 @@ class YoutubeDLNode:
         youtube_link,
         playlist_start,
         playlist_end,
-        audio_quality: Optional[int] = None,
+        audio_quality: Optional[float] = None,
         delete_after: bool = False,
         random_from_playlist: bool = False,
         yt_dlp_cli_args: Optional[str] = None,
@@ -109,7 +109,7 @@ class YoutubeDLNode:
         }
 
         if audio_quality:
-            ydl_opts["audioquality"] = int(audio_quality)
+            ydl_opts["audioquality"] = int(round(audio_quality))
         if random_from_playlist:
             ydl_opts["playlist_random"] = True
         if self.is_windows:
@@ -156,14 +156,14 @@ class YoutubeDLNode:
 
         return (audio,)
 
-    def is_playlist(self, res):
+    def is_playlist(self, res: dict) -> bool:
         has_playlist_basename = (
             "webpage_url_basename" in res and res["webpage_url_basename"] == "playlist"
         )
         has_playlist_count = "playlist_count" in res and res["playlist_count"] > 0
         return has_playlist_basename or has_playlist_count
 
-    def pad_cat(self, waveforms):
+    def pad_cat(self, waveforms: List[torch.Tensor]) -> torch.Tensor:
         """
         Args:
             waveforms: List[torch.Tensor]
@@ -184,7 +184,7 @@ class YoutubeDLNode:
         for path in paths:
             os.remove(path)
 
-    def match_file(self, basename, mime_type="video"):
+    def match_file(self, basename: str, mime_type: str = "video") -> str:
         input_dir = folder_paths.get_input_directory()
         windows_basename = yt_dlp.utils.sanitize_filename(basename)
         for fi in os.listdir(input_dir):
@@ -200,7 +200,7 @@ class YoutubeDLNode:
             f"Could not find file in input_dir {input_dir} with basename: {basename}"
         )
 
-    def resolve_path(self, basename):
+    def resolve_path(self, basename: str) -> str:
         input_dir = folder_paths.get_input_directory()
         filename = self.match_file(basename)
         return os.path.join(input_dir, filename)
@@ -215,7 +215,7 @@ class YoutubeDLNode:
         waveform, sample_rate = torchaudio.load(path)
         return waveform.unsqueeze(0), sample_rate
 
-    def get_playlist_entry_titles(self, res):
+    def get_playlist_entry_titles(self, res: dict) -> List[str]:
         if "entries" not in res:
             raise KeyError(
                 f"Expected this to be a playlist but there are is no 'entries' key in the response: {res}"

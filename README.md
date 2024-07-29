@@ -15,7 +15,7 @@ Download youtube videos/playlists
 
 If you provide a link to a playlist, the videos from `playlist_start` to `playlist_end` will be downloaded and output in a batch.
 
-You can use any of the [yt-dlp cli options](https://github.com/yt-dlp/yt-dlp?tab=readme-ov-file#usage-and-options)
+You can use any of the [yt-dlp cli args](https://github.com/yt-dlp/yt-dlp?tab=readme-ov-file#usage-and-options) for configuration.
 
 ## Requirements
 
