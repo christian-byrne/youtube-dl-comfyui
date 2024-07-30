@@ -1,8 +1,12 @@
 # youtube-dl-comfyui
 
-Download youtube videos/playlists
+Download media from url.
 
 ![alt text](docs/pictures/demo.png)
+
+![alt text](docs/pictures/demo-qq.png)
+
+![alt text](docs/pictures/demo-vimeo.png)
 
 ## Install
 

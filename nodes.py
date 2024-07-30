@@ -110,7 +110,7 @@ class YoutubeDL:
         if audio_quality:
             ydl_opts["audioquality"] = int(round(audio_quality))
         if random_from_playlist:
-            ydl_opts["playlist_random"] = True
+            ydl_opts["playlistrandom"] = True
         if self.is_windows:
             ydl_opts["windowsfilenames"] = True
         if yt_dlp_cli_args:
