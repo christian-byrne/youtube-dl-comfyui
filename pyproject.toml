@@ -1,0 +1,15 @@
+[project]
+name = "youtube-dl-comfyui"
+description = "Download youtube videos/playlists"
+version = "1.0.0"
+license = {file = "LICENSE"}
+dependencies = ["yt-dlp"]
+
+[project.urls]
+Repository = "https://github.com/christian-byrne/youtube-dl-comfyui"
+#  Used by Comfy Registry https://comfyregistry.org
+
+[tool.comfy]
+PublisherId = ""
+DisplayName = "youtube-dl-comfyui"
+Icon = ""
