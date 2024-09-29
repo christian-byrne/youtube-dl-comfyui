@@ -98,7 +98,6 @@ class YoutubeDL:
         self.is_windows = platform.system() == "Windows"
         input_dir = folder_paths.get_input_directory()
         ydl_opts = {
-            "format": "best",
             "playliststart": playlist_start,
             "playlistend": playlist_end,
             "outtmpl": f"{input_dir}/%(title)s.%(ext)s",
