@@ -98,6 +98,12 @@ class YoutubeDL:
         self.is_windows = platform.system() == "Windows"
         input_dir = folder_paths.get_input_directory()
         ydl_opts = {
+            "format": "mp3/bestaudio/best",
+            # ℹ️ See help(yt_dlp.postprocessor) for a list of available Postprocessors and their arguments
+            "postprocessors": [{  # Extract audio using ffmpeg
+                "key": "FFmpegExtractAudio",
+                "preferredcodec": "mp3",
+            }],
             "playliststart": playlist_start,
             "playlistend": playlist_end,
             "outtmpl": f"{input_dir}/%(title)s.%(ext)s",
@@ -182,7 +188,7 @@ class YoutubeDL:
         for path in paths:
             os.remove(path)
 
-    def match_file(self, basename: str, mime_type: str = "video") -> str:
+    def match_file(self, basename: str, mime_type: str = "audio/mpeg") -> str:
         input_dir = folder_paths.get_input_directory()
         windows_basename = yt_dlp.utils.sanitize_filename(basename)
         for fi in os.listdir(input_dir):
